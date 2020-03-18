@@ -10,6 +10,7 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
+import { localsMiddleware } from "./middlewares";
 
 const app = express();
 
@@ -17,11 +18,13 @@ const PORT = 4000;
 
 //req = request object , res = response object
 
+app.use(helmet());
+app.set("view engine", "pug");
 app.use(cookieParser()); //this is how the server understands cookies coming from users
 app.use(bodyParser.json()); //this is how the server understands data coming from users
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet());
 app.use(morgan("dev"));
+app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
