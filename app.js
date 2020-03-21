@@ -14,8 +14,6 @@ import { localsMiddleware } from "./middlewares";
 
 const app = express();
 
-const PORT = 4000;
-
 //req = request object , res = response object
 
 app.use(helmet());
