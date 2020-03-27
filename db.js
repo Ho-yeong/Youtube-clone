@@ -1,54 +1,21 @@
-export const videos = [
-  {
-    id: 3422423,
-    title: "Video Awesome",
-    description: "This is what I love",
-    views: 24,
-    videoFile:
-      "https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/rabbit320.mp4",
-    creator: {
-      userid: "nothing",
-      name: "Simon",
-      email: "some@thing.com"
-    }
-  },
-  {
-    id: 34352,
-    title: "Video Perfect",
-    description: "This is what I love",
-    views: 24,
-    videoFile:
-      "https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/rabbit320.mp4",
-    creator: {
-      userid: "nothing",
-      name: "Simon",
-      email: "some@thing.com"
-    }
-  },
-  {
-    id: 678576,
-    title: "Video Good",
-    description: "This is what I love",
-    views: 24,
-    videoFile:
-      "https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/rabbit320.mp4",
-    creator: {
-      userid: "nothing",
-      name: "Simon",
-      email: "some@thing.com"
-    }
-  },
-  {
-    id: 12345,
-    title: "Video Nice",
-    description: "This is what I love",
-    views: 24,
-    videoFile:
-      "https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/rabbit320.mp4",
-    creator: {
-      userid: "nothing",
-      name: "Simon",
-      email: "some@thing.com"
-    }
-  }
-];
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
+
+const db = mongoose.connection;
+
+const handleOpen = () => {
+  console.log("Connected to DB");
+};
+
+const handleError = error => {
+  console.log(`Error on DB connection${error}`);
+};
+
+db.once("open", handleOpen);
+db.once("error", handleError);
