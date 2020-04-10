@@ -2,6 +2,7 @@
   background-color: $red;
   margin-bottom: 50px;
   .header__wrapper {
+    padding: 5px 0px;
     width: 100%;
     margin: 0 auto;
     max-width: 1000px;
@@ -11,7 +12,7 @@
     .header__column {
       i {
         color: white;
-        font-size: 40px;
+        font-size: 30px;
       }
       &:nth-child(2) {
         justify-self: center;
@@ -38,7 +39,8 @@
           font-size: 14px;
           color: $black;
           font-weight: 600;
-          &:placeholder {
+          max-width: none;
+          &::placeholder {
             color: rgba(0, 0, 0, 0.7);
             font-weight: 300;
           }
