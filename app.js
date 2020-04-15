@@ -3,6 +3,7 @@ import morgan from "morgan"; //middleware
 import helmet from "helmet"; //for security
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
 //these two handle cookie and body
 // import { userRouter } from "./routers/userRouter";
 // it didn't be imported as default. that's why use {} bracket
@@ -11,6 +12,7 @@ import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 import { localsMiddleware } from "./middlewares";
+import "./passport";
 
 const app = express();
 
@@ -24,6 +26,9 @@ app.use(cookieParser()); //this is how the server understands cookies coming fro
 app.use(bodyParser.json()); //this is how the server understands data coming from users
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter);
