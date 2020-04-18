@@ -4,6 +4,9 @@ import helmet from "helmet"; //for security
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import mongoose from "mongoose";
 //these two handle cookie and body
 // import { userRouter } from "./routers/userRouter";
 // it didn't be imported as default. that's why use {} bracket
@@ -16,6 +19,8 @@ import "./passport";
 
 const app = express();
 
+const CookieStore = MongoStore(session);
+
 //req = request object , res = response object
 
 app.use(helmet());
@@ -26,6 +31,16 @@ app.use(cookieParser()); //this is how the server understands cookies coming fro
 app.use(bodyParser.json()); //this is how the server understands data coming from users
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new CookieStore({
+      mongooseConnection: mongoose.connection,
+    }),
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
